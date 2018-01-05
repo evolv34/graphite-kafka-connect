@@ -1,0 +1,7 @@
+{
+  "metricName": "sample.metric.name",
+  "tags": {
+    "tag1": "value"
+  },
+  "value": "123456"
+}
