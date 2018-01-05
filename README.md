@@ -2,13 +2,13 @@
 
 This is a generic kafka connect for timeseries database. Currently it supports graphite database.
 
-###Prerequisites
+### Prerequisites
 * docker-compose: 1.18.0
 * docker-engine: 17.09.1-ce
 * sbt: 0.14.0
 * confluent-platform: 4.0.0
 
-###How to execute
+### How to execute
 
 * To build the plugin jar `sbt build-complete`
 * Start graphite database docker container. 
