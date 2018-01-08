@@ -2,6 +2,9 @@
 
 This is a generic kafka connect for timeseries database. Currently it supports graphite database.
 
+### Note: 
+* For mac users **docker for mac** is suggested
+
 ### Prerequisites
 * docker-compose: 1.18.0
 * docker-engine: 17.09.1-ce
@@ -25,4 +28,5 @@ This is a generic kafka connect for timeseries database. Currently it supports g
 ### How to commit
 
 Create issue if some thing fails.
+
 

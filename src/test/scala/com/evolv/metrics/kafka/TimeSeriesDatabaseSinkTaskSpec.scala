@@ -1,7 +1,8 @@
 package com.evolv.metrics.kafka
 
 import com.evolv.metrics.UnitSpec
-import com.evolv.metrics.reporter.{Config, Metric}
+import com.evolv.metrics.converters.model.Measurement
+import com.evolv.metrics.reporter.Config
 import com.evolv.metrics.utils.MockServer
 import org.apache.kafka.connect.sink.SinkRecord
 
@@ -31,7 +32,7 @@ class TimeSeriesDatabaseSinkTaskSpec extends UnitSpec {
       Config.TimeSeriesDatabasePort -> mockServerPort.toString)
     timeSeriesDatabaseSinkTask.start(properties.asJava)
 
-    val metric = Metric("sample-topic", Map[String, String](), "123456789", Some((System.currentTimeMillis / 1000).toString))
+    val metric = Measurement("sample-topic", Map[String, String](), "123456789", Some((System.currentTimeMillis / 1000).toString))
     val sinkRecord = new SinkRecord("test-topic", 0, null, null, null, metric, 0L)
 
     timeSeriesDatabaseSinkTask.put(List(sinkRecord).asJava)

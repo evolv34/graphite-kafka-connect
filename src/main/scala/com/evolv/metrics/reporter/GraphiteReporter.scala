@@ -1,8 +1,9 @@
 package com.evolv.metrics.reporter
 
-import java.io.{BufferedReader, DataOutputStream, InputStreamReader}
+import java.io.DataOutputStream
 import java.net.Socket
 
+import com.evolv.metrics.converters.model.Measurement
 import org.apache.kafka.connect.sink.SinkRecord
 
 class GraphiteReporter(host: String, port: String) extends TimeSeriesDatabaseReporter {
@@ -11,7 +12,7 @@ class GraphiteReporter(host: String, port: String) extends TimeSeriesDatabaseRep
   val outToServer = new DataOutputStream(clientSocket.getOutputStream)
 
   override def write(record: SinkRecord): Unit = {
-    val metric = record.value().asInstanceOf[Metric]
+    val metric = record.value().asInstanceOf[Measurement]
 
     write(metric.metricName, metric.value, metric.timestamp)
   }
