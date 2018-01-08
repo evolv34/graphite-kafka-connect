@@ -3,6 +3,7 @@ package com.evolv.metrics.reporter
 import java.util.concurrent.TimeUnit
 
 import com.evolv.metrics.UnitSpec
+import com.evolv.metrics.converters.model.Measurement
 import com.evolv.metrics.utils.MockServer
 import org.apache.kafka.connect.sink.SinkRecord
 
@@ -36,8 +37,8 @@ class GraphiteReporterSpec extends UnitSpec {
     assert(actualResponse.contains(metric.value))
   }
 
-  private def getSinkRecord(timestamp: Option[String]): (Metric, SinkRecord) = {
-    val metric = Metric("sample-topic", Map[String, String](), "123456789", timestamp)
+  private def getSinkRecord(timestamp: Option[String]): (Measurement, SinkRecord) = {
+    val metric = Measurement("sample-topic", Map[String, String](), "123456789", timestamp)
     val sinkRecord = new SinkRecord(metric.metricName, 0, null, null, null, metric, 0L)
     (metric, sinkRecord)
   }
