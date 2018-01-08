@@ -44,16 +44,29 @@ services:
         CONFLUENT_METRICS_ENABLE: 'true'
         CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
 
+  schema_registry:
+      image: confluentinc/cp-schema-registry
+      hostname: schema_registry
+      depends_on:
+        - zookeeper
+        - broker
+      ports:
+        - "8081:8081"
+      environment:
+        SCHEMA_REGISTRY_HOST_NAME: schema_registry
+        SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: zookeeper:2181
+
   kafka-connect-graphite:
       build: ../
       depends_on:
        - zookeeper
        - broker
+       - schema_registry
        - statsd
       ports:
        - "8083:8083"
       environment:
-        CONNECT_BOOTSTRAP_SERVERS: 'broker:9092'
+        CONNECT_BOOTSTRAP_SERVERS: broker:9092
         CONNECT_REST_ADVERTISED_HOST_NAME: connect
         CONNECT_REST_PORT: 8083
         CONNECT_GROUP_ID: compose-connect-group
@@ -65,12 +78,13 @@ services:
         CONNECT_STATUS_STORAGE_TOPIC: docker-connect-status
         CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
         CONNECT_KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
-        CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+        CONNECT_VALUE_CONVERTER: com.evolv.metrics.converters.MeasurementAvroConverter
         CONNECT_INTERNAL_KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
         CONNECT_INTERNAL_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
-        CONNECT_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+        CONNECT_ZOOKEEPER_CONNECT: zookeeper:2181
         CONNECT_PLUGIN_PATH: /usr/share/java
         CONNECT_INTERNAL_KEY_CONVERTER_SCHEMAS_ENABLE: "false"
         CONNECT_INTERNAL_VALUE_CONVERTER_SCHEMAS_ENABLE: "false"
         CONNECT_KEY_CONVERTER_SCHEMAS_ENABLE: "false"
-        CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE: "false"
+        CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE: "true"
+        CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL: schema_registry:8081

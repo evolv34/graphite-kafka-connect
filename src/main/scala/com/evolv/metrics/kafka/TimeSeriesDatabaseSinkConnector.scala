@@ -3,11 +3,11 @@ package com.evolv.metrics.kafka
 import java.util
 
 import com.evolv.metrics.reporter.Config
+import com.evolv.metrics.{toJavaList, toScalaPropertiesMap}
 import org.apache.kafka.common.config.ConfigDef
 import org.apache.kafka.common.config.ConfigDef.Importance
 import org.apache.kafka.connect.connector.Task
 import org.apache.kafka.connect.sink.SinkConnector
-import com.evolv.metrics.{toJavaList, toScalaMap}
 
 import scala.annotation.tailrec
 
