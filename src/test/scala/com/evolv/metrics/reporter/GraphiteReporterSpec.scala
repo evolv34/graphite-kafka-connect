@@ -1,7 +1,5 @@
 package com.evolv.metrics.reporter
 
-import java.util.concurrent.TimeUnit
-
 import com.evolv.metrics.UnitSpec
 import com.evolv.metrics.converters.model.Measurement
 import com.evolv.metrics.utils.MockServer
@@ -38,7 +36,7 @@ class GraphiteReporterSpec extends UnitSpec {
   }
 
   private def getSinkRecord(timestamp: Option[String]): (Measurement, SinkRecord) = {
-    val metric = Measurement("sample-topic", Map[String, String](), "123456789", timestamp)
+    val metric = Measurement("sample-topic", None, "123456789", timestamp)
     val sinkRecord = new SinkRecord(metric.metricName, 0, null, null, null, metric, 0L)
     (metric, sinkRecord)
   }

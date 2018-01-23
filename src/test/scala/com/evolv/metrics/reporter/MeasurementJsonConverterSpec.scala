@@ -14,7 +14,7 @@ class MeasurementJsonConverterSpec extends UnitSpec {
 
   "MetricConverter.fromConnectData" should "serialize Metric case class to Array[Byte]" in {
     val metricConverter = new MeasurementJsonConverter()
-    val metric = Measurement("test.measurement", Map[String, String](), "123456", None)
+    val metric = Measurement("test.measurement", None, "123456", None)
     val expectedResponse = write(metric).toString.getBytes()
 
     val actualResponse = metricConverter.fromConnectData("test-topic", null, metric)
@@ -26,7 +26,7 @@ class MeasurementJsonConverterSpec extends UnitSpec {
 
   "MetricConverter.toConnectData" should "deserialize Array[Byte] to Metric case class" in {
     val metricConverter = new MeasurementJsonConverter()
-    val metric = Measurement("test.measurement", Map[String, String](), "123456", None)
+    val metric = Measurement("test.measurement", None, "123456", None)
     val serializedMetric = write(metric).toString.getBytes()
 
     val actualResponse = metricConverter.toConnectData("test-topic", serializedMetric)

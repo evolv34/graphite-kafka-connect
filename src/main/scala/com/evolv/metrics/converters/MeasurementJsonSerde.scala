@@ -7,16 +7,16 @@ import org.apache.kafka.common.serialization.{Deserializer, Serializer}
 import org.json4s.DefaultFormats
 import org.json4s.native.Serialization.{read, write}
 
-private[converters] object MetricSerde {
+private[converters] object MeasurementJsonSerde {
   implicit val formats = DefaultFormats.preservingEmptyValues
 
-  class MetricSerializer extends Serializer[Measurement] {
+  class MeasurementSerializer extends Serializer[Measurement] {
     override def configure(configs: util.Map[String, _], isKey: Boolean): Unit = {}
     override def serialize(topic: String, data: Measurement): Array[Byte] = write(data).toString.getBytes()
     override def close(): Unit = {}
   }
 
-  class MetricDeserializer extends Deserializer[Measurement] {
+  class MeasurementDeserializer extends Deserializer[Measurement] {
     val encoding = "UTF8"
 
     override def configure(configs: util.Map[String, _], isKey: Boolean): Unit = {}

@@ -3,7 +3,7 @@ package com.evolv.metrics.kafka
 import java.util
 
 import com.evolv.metrics.reporter.{Config, Reporter}
-import com.evolv.metrics.{toScalaList, _}
+import com.evolv.metrics.{toScalaList, toScalaPropertiesMap}
 import org.apache.kafka.connect.sink.{SinkRecord, SinkTask}
 
 class TimeSeriesDatabaseSinkTask extends SinkTask {

@@ -4,16 +4,15 @@ import com.evolv.metrics.UnitSpec
 import com.evolv.metrics.converters.model.Measurement
 import org.json4s.DefaultFormats
 import org.json4s.native.Serialization.write
-import org.scalatest.{FlatSpec, Matchers}
 
 import scala.collection.JavaConverters._
 
-class MeasurementSerdeSpec extends UnitSpec {
+class MeasurementJsonSerdeSpec extends UnitSpec {
   implicit val formats = DefaultFormats.preservingEmptyValues
 
   "MetricSerde.MetricSerializer.serialize" should "return serialized metric object to ByteArray" in {
-    val serializer = new MetricSerde.MetricSerializer()
-    val metric = Measurement("kafka.graphite.test", Map("key" -> "value"), "123456789", None)
+    val serializer = new MeasurementJsonSerde.MeasurementSerializer()
+    val metric = Measurement("kafka.graphite.test", Some(Map("key" -> "value")), "123456789", None)
 
     val byteArrayOutput = serializer.serialize("test-topic", metric)
     byteArrayOutput shouldBe getBytes(metric)
@@ -24,8 +23,8 @@ class MeasurementSerdeSpec extends UnitSpec {
   }
 
   "MetricSerde.MetricDeserializer.deserialize" should "return serialized metric object to ByteArray" in {
-    val deserializer = new MetricSerde.MetricDeserializer()
-    val expectedMetric = Measurement("kafka.graphite.test", Map("key" -> "value"), "123456789", None)
+    val deserializer = new MeasurementJsonSerde.MeasurementDeserializer()
+    val expectedMetric = Measurement("kafka.graphite.test", Some(Map("key" -> "value")), "123456789", None)
 
     val actualMetric = deserializer.deserialize("test-topic", getBytes(expectedMetric))
     actualMetric shouldBe expectedMetric

@@ -32,7 +32,7 @@ class TimeSeriesDatabaseSinkTaskSpec extends UnitSpec {
       Config.TimeSeriesDatabasePort -> mockServerPort.toString)
     timeSeriesDatabaseSinkTask.start(properties.asJava)
 
-    val metric = Measurement("sample-topic", Map[String, String](), "123456789", Some((System.currentTimeMillis / 1000).toString))
+    val metric = Measurement("sample-topic", None, "123456789", Some((System.currentTimeMillis / 1000).toString))
     val sinkRecord = new SinkRecord("test-topic", 0, null, null, null, metric, 0L)
 
     timeSeriesDatabaseSinkTask.put(List(sinkRecord).asJava)

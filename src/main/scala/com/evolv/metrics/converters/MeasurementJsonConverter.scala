@@ -7,8 +7,8 @@ import org.apache.kafka.connect.data.{Schema, SchemaAndValue}
 import org.apache.kafka.connect.storage.Converter
 
 class MeasurementJsonConverter extends Converter {
-  val serializer = new MetricSerde.MetricSerializer()
-  val deserializer = new MetricSerde.MetricDeserializer()
+  val serializer = new MeasurementJsonSerde.MeasurementSerializer()
+  val deserializer = new MeasurementJsonSerde.MeasurementDeserializer()
 
   override def configure(configs: util.Map[String, _], isKey: Boolean): Unit = {
     serializer.configure(configs, isKey)

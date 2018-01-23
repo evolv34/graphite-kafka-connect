@@ -13,5 +13,6 @@ package object metrics {
     .asJava
 
   implicit def toScalaList(records: util.Collection[SinkRecord]): List[SinkRecord] = records.asScala.toList
-  implicit def toScalaMap(props: util.Map[String, String]): Map[String, String] = props.asScala.toMap
+  implicit def toScalaMap(props: util.Map[String, _]): Map[String, _] = props.asScala.toMap
+  implicit def toScalaPropertiesMap(props: util.Map[String, String]): Map[String, String] = props.asScala.toMap
 }
