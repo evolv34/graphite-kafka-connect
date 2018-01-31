@@ -1,0 +1,14 @@
+{
+  "name": "graphite-sink-connector-2",
+  "config": {
+    "connector.class": "com.evolv.metrics.kafka.TimeSeriesDatabaseSinkConnector",
+    "tasks.max": "1",
+    "topics": "test_topic_9",
+    "timeseries.host": "statsd",
+    "value.converter": "com.evolv.metrics.converters.MeasurementAvroConverter",
+    "schemas.enable": "true",
+    "timeseries.port": "2003",
+    "timeseries.reporter": "GraphiteReporter",
+    "value.converter.schema.registry.url": "http://schema_registry:8081"
+  }
+}
