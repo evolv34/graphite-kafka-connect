@@ -2,7 +2,7 @@ package com.evolv.metrics.converters
 
 import java.util
 
-import io.confluent.kafka.serializers.{AbstractKafkaAvroDeserializer, AbstractKafkaAvroSerializer, KafkaAvroDeserializerConfig}
+import io.confluent.kafka.serializers.{AbstractKafkaAvroDeserializer, KafkaAvroDeserializerConfig}
 import org.apache.avro.generic.GenericContainer
 
 private[converters] object MeasurementAvroSerde {
