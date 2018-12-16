@@ -10,10 +10,9 @@ import scala.concurrent.duration.Duration
 
 class GraphiteReporterSpec extends UnitSpec {
   val mockServerPort = 12003
-  val mockServer = MockServer(mockServerPort)
 
   "GraphiteReporter.write" should "take the time from message and write the sink record to timeseries database" in {
-    val serverFuture = mockServer.init()
+    val serverFuture = MockServer(mockServerPort).init()
     val graphiteReporter = GraphiteReporter("localhost", mockServerPort.toString)
     val (metric, sinkRecord) = getSinkRecord(Some((System.currentTimeMillis / 1000).toString))
 
@@ -24,7 +23,7 @@ class GraphiteReporterSpec extends UnitSpec {
   }
 
   it should "take the current time and write the sink record to timeseries database" in {
-    val serverFuture = mockServer.init()
+    val serverFuture = MockServer(mockServerPort).init()
     val graphiteReporter = GraphiteReporter("localhost", mockServerPort.toString)
     val (metric, sinkRecord) = getSinkRecord(None)
 

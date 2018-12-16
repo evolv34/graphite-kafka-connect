@@ -9,6 +9,7 @@ import scala.concurrent.Future
 
 
 class MockServer(port: Int) {
+
   def init():Future[String] = Future {
     val server = new ServerSocket(port)
     val s = server.accept()
@@ -17,10 +18,10 @@ class MockServer(port: Int) {
 
     val data = serverInputStream.readLine()
     serverInputStream.close()
+    s.close()
     server.close()
     data
   }
-  TimeUnit.SECONDS.sleep(5)
 }
 
 object MockServer {
